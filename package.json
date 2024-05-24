@@ -9,12 +9,8 @@
     "start": "tsx app.ts",
     "watch": "tsx --watch --trace-warnings app.ts"
   },
-  "dependencies": {
-    "lodash": "^4.17.21"
-  },
   "devDependencies": {
     "tsx": "^4.11.0",
-    "@types/lodash": "^4.17.4",
     "@types/node": "^20.12.12"
   }
 }
