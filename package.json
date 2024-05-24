@@ -1,0 +1,7 @@
+{
+  "name": "json-key-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Eduardo Teixeira",
+  "license": "MIT"
+}
