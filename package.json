@@ -1,7 +1,15 @@
 {
-  "name": "json-key-manager",
+  "name": "json-manager",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Eduardo Teixeira",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "watch": "node --watch --trace-warnings app.js"
+  },
+  "dependencies": {
+    "node": "^18.20.3"
+  }
 }
