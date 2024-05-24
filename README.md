@@ -1,4 +1,4 @@
-## JSON Manager
+## JSON Lower Keys
 
 Funcionalidade para poder fazer com que **todas** as keys de um JSON fiquem com iniciais minúsculas.
 
