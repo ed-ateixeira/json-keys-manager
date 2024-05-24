@@ -10,16 +10,16 @@ export class JSONManager {
   private new_data: DefaultObject;
 
   constructor(from: string, to: string) {
+    this.new_data = {};
     this.from = from;
     this.to = to;
-    this.new_data = {};
 
     this.reader((err, data) => {
       if (err) {
         throw new Error(`Error reading file: ${err.message}`);
       }
 
-      this.writer(this.manager(JSON.parse(data)));
+      this.writer(this.manager(data));
     });
   }
 
@@ -45,9 +45,12 @@ export class JSONManager {
     for (const [key, value] of Object.entries(object)) {
       const uncapitalized_key = StringUtils.uncapitalize(key);
 
-      if (Array.isArray(value)) {
+      const isArray = Array.isArray(value);
+      const isObject = typeof value === "object" && value !== null;
+
+      if (isArray) {
         new_object[uncapitalized_key] = this.uncapitalize_array(value);
-      } else if (typeof value === "object" && value !== null) {
+      } else if (isObject) {
         new_object[uncapitalized_key] = this.uncapitalize_object(value);
       } else {
         new_object[uncapitalized_key] = value;
@@ -65,22 +68,7 @@ export class JSONManager {
     );
   }
 
-  private manager(data: DefaultObject) {
-    for (const [key, value] of Object.entries(data)) {
-      const uncapitalized_key = StringUtils.uncapitalize(key);
-
-      const isArray = Array.isArray(value);
-      const isObject = typeof value === "object" && value !== null;
-
-      if (isArray) {
-        this.new_data[uncapitalized_key] = this.uncapitalize_array(value);
-      } else if (isObject) {
-        this.new_data[uncapitalized_key] = this.uncapitalize_object(value);
-      } else {
-        this.new_data[uncapitalized_key] = value;
-      }
-    }
-
-    return this.new_data;
+  private manager(data: string) {
+    return this.uncapitalize_object(JSON.parse(data));
   }
 }
