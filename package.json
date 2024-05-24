@@ -1,5 +1,5 @@
 {
-  "name": "json-manager",
+  "name": "json-lower-keys",
   "version": "1.0.0",
   "main": "app.ts",
   "author": "Eduardo Teixeira",
