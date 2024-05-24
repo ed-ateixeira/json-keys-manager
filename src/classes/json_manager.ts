@@ -7,11 +7,12 @@ type DefaultObject = Record<string, any>;
 export class JSONManager {
   private from: string;
   private to: string;
-  private new_data: DefaultObject = {};
+  private new_data: DefaultObject;
 
   constructor(from: string, to: string) {
     this.from = from;
     this.to = to;
+    this.new_data = {};
 
     this.reader((err, data) => {
       if (err) {
@@ -41,9 +42,16 @@ export class JSONManager {
   private uncapitalize_object(object: DefaultObject) {
     const new_object: DefaultObject = {};
 
-    for (const key in object) {
+    for (const [key, value] of Object.entries(object)) {
       const uncapitalized_key = StringUtils.uncapitalize(key);
-      new_object[uncapitalized_key] = object[key];
+
+      if (Array.isArray(value)) {
+        new_object[uncapitalized_key] = this.uncapitalize_array(value);
+      } else if (typeof value === "object" && value !== null) {
+        new_object[uncapitalized_key] = this.uncapitalize_object(value);
+      } else {
+        new_object[uncapitalized_key] = value;
+      }
     }
 
     return new_object;
@@ -51,7 +59,9 @@ export class JSONManager {
 
   private uncapitalize_array(array: Array<DefaultObject | string>) {
     return array.map((item) =>
-      typeof item === "object" ? this.uncapitalize_object(item) : item
+      typeof item === "object" && item !== null
+        ? this.uncapitalize_object(item)
+        : item
     );
   }
 
@@ -60,7 +70,7 @@ export class JSONManager {
       const uncapitalized_key = StringUtils.uncapitalize(key);
 
       const isArray = Array.isArray(value);
-      const isObject = typeof value === "object";
+      const isObject = typeof value === "object" && value !== null;
 
       if (isArray) {
         this.new_data[uncapitalized_key] = this.uncapitalize_array(value);
