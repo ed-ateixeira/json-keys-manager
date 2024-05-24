@@ -1,15 +1,16 @@
 {
   "name": "json-manager",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
   "author": "Eduardo Teixeira",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "watch": "node --watch --trace-warnings app.js"
+    "start": "tsx app.ts",
+    "watch": "tsx --watch --trace-warnings app.ts"
   },
-  "dependencies": {
-    "node": "^18.20.3"
+  "devDependencies": {
+    "tsx": "^4.11.0",
+    "@types/node": "^20.12.12"
   }
 }
