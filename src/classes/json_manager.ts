@@ -7,10 +7,8 @@ type DefaultObject = Record<string, any>;
 export class JSONManager {
   private from: string;
   private to: string;
-  private new_data: DefaultObject;
 
   constructor(from: string, to: string) {
-    this.new_data = {};
     this.from = from;
     this.to = to;
 
